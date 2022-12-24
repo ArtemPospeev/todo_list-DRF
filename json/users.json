@@ -1,0 +1,34 @@
+[
+  {
+    "username": "DarkSide",
+    "password": "1111",
+    "first_name": "Daniil",
+    "last_name": "Gusevskii",
+    "email": "test@django.local",
+    "birthday_date": "1993-12-11"
+  },
+  {
+    "username": "LightSide",
+    "password": "1111",
+    "first_name": "Kirill",
+    "last_name": "Shamilev",
+    "email": "test1@django.local",
+    "birthday_date": "1995-12-30"
+  },
+  {
+    "username": "HoMM",
+    "password": "1111",
+    "first_name": "Ivan",
+    "last_name": "Abramov",
+    "email": "test2@django.local",
+    "birthday_date": "1983-05-20"
+  },
+  {
+    "username": "VaK",
+    "password": "1111",
+    "first_name": "Alexey",
+    "last_name": "Fiksov",
+    "email": "test3@django.local",
+    "birthday_date": "1966-03-09"
+  }
+]
