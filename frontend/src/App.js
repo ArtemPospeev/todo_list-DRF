@@ -1,43 +1,71 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+import UserList from "./components/Users";
+import axios from "axios";
+import MenuList from "./components/Menu";
+import FooterList from "./components/Footer";
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state ={
-      'users': []
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            'users': [],
+            'menu': [],
+            'footer': []
+        };
+    }
 
-  render() {
-    return(
-        <div>
-          Hi!
-        </div>
-    )
-  }
+    componentDidMount() {
+        axios.get('http://127.0.0.1:8000/api/users')
+            .then(response => {
+                const users = response.data
+                this.setState(
+                    {
+                        'users': users
+                    }
+                )
+            }).catch(error => console.log(error))
+
+        this.state.menu = [
+            {
+                name: 'Main page',
+                link: '#'
+            },
+            {
+                name: 'API documentations',
+                link: '#'
+            },
+            {
+                name: 'Contacts',
+                link: '#'
+            }
+        ]
+
+        this.state.footer = [
+            {
+                name: 'About US',
+                link: '#'
+            },
+            {
+                name: 'Show all products',
+                link: '#'
+            },
+            {
+                name: 'rest@django.local',
+                link: '#'
+            }
+        ]
+    }
+
+    render() {
+        return (
+            <div>
+                <MenuList blocks={this.state.menu}/>
+                <UserList users={this.state.users}/>
+                <FooterList blocks={this.state.footer}/>
+            </div>
+        )
+    }
 }
 
 export default App;

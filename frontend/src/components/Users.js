@@ -3,34 +3,34 @@ import React from "react";
 const UserItem = ({user}) => {
     return (
         <tr>
-            <td>user.username</td>
-            <td>user.first_name</td>
-            <td>user.last_name</td>
-            <td>user.email</td>
-            <td>user.birthday_date</td>
+            <td>{user.username}</td>
+            <td>{user.first_name}</td>
+            <td>{user.last_name}</td>
+            <td>{user.email}</td>
+            <td>{user.birthday_date}</td>
         </tr>
     )
 }
 
 const UserList = ({users}) => {
-    return(
-        <table>
+    return (
+        <table className='body'>
             <th>
-                username
+                Username
             </th>
             <th>
-                first name
+                First name
             </th>
             <th>
-                last name
+                Last name
             </th>
             <th>
-                email
+                Email
             </th>
             <th>
-                birthday date
+                Birthday date
             </th>
-            {users.map((user) => <UserItem user={user} />)}
+            {users.map((user) => <UserItem user={user}/>)}
         </table>
     )
 }
