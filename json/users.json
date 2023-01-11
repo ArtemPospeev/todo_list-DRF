@@ -30,5 +30,37 @@
     "last_name": "Fiksov",
     "email": "test3@django.local",
     "birthday_date": "1966-03-09"
+  },
+  {
+    "username": "Bleed",
+    "password": "1111",
+    "first_name": "Phill",
+    "last_name": "Ranjin",
+    "email": "test4@django.local",
+    "birthday_date": "1993-12-11"
+  },
+  {
+    "username": "SnakieBird",
+    "password": "1111",
+    "first_name": "Marina",
+    "last_name": "Andreeva",
+    "email": "test5@django.local",
+    "birthday_date": "1991-05-26"
+  },
+  {
+    "username": "Dragon",
+    "password": "1111",
+    "first_name": "Dmitrii",
+    "last_name": "Prusihin",
+    "email": "test6@django.local",
+    "birthday_date": "1981-04-12"
+  },
+  {
+    "username": "Apostol",
+    "password": "1111",
+    "first_name": "Vlad",
+    "last_name": "Ten",
+    "email": "test7@django.local",
+    "birthday_date": "1996-03-09"
   }
 ]

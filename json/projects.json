@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Data Base",
+    "number": 1000,
+    "repo_link": "https://github.com/test",
+    "users": [
+      "DarkSide",
+      "HoMM"
+    ]
+  },
+  {
+    "name": "Frontend",
+    "number": 1001,
+    "repo_link": "https://github.com/test2",
+    "users": [
+      "LightSide",
+      "VaK"
+    ]
+  },
+  {
+    "name": "Backend",
+    "number": 1002,
+    "repo_link": "",
+    "users": [
+      "Bleed",
+      "SnakieBird"
+    ]
+  },
+  {
+    "name": "Kubernetes",
+    "number": 1003,
+    "repo_link": "https://github.com/test3",
+    "users": [
+      "Dragon",
+      "Apostol"
+    ]
+  }
+]
