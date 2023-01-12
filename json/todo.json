@@ -1,0 +1,58 @@
+[
+  {
+    "project": 1000,
+    "creator": "Bleed",
+    "number": 10,
+    "body": "Проектирование базы данных",
+    "is_active": false
+  },
+  {
+    "project": 1000,
+    "creator": "SnakieBird",
+    "number": 11,
+    "body": "Создание моделей, ОРМ",
+    "is_active": true
+  },
+  {
+    "project": 1001,
+    "creator": "Apostol",
+    "number": 12,
+    "body": "Разобраться с дизайнерами по внесению правок",
+    "is_active": true
+  },
+  {
+    "project": 1001,
+    "creator": "Dragon",
+    "number": 13,
+    "body": "Сверстать шаблоны",
+    "is_active": true
+  },
+  {
+    "project": 1002,
+    "creator": "Dragon",
+    "number": 14,
+    "body": "Найти dev ops'а :D",
+    "is_active": false
+  },
+  {
+    "project": 1002,
+    "creator": "VaK",
+    "number": 15,
+    "body": "Выбрать стек технологий",
+    "is_active": true
+  },
+  {
+    "project": 1003,
+    "creator": "VaK",
+    "number": 16,
+    "body": "Разобраться с безопасностью контейнеров",
+    "is_active": true
+  },
+  {
+    "project": 1003,
+    "creator": "VaK",
+    "number": 17,
+    "body": "Определить возможность миграции среды вычисления",
+    "is_active": true
+  }
+]
