@@ -9,7 +9,7 @@ class Project(CustomBaseModel):
     users = models.ManyToManyField(CustomUser, verbose_name='Users')
 
     def __str__(self):
-        return f'number: {self.number} | name: {self.name} '
+        return f'Number: {self.number} | name: {self.name} '
 
 
 class ToDo(CustomBaseModel):
