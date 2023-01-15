@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
-import UserList from "./components/Users";
 import axios from "axios";
+import UserList from "./components/Users";
 import MenuList from "./components/Menu";
 import FooterList from "./components/Footer";
 
@@ -16,9 +16,10 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://127.0.0.1:8000/api/users')
+        axios.get('http://127.0.0.1:8000/users')
             .then(response => {
-                const users = response.data
+                const users = response.data['results']
+                console.log(users)
                 this.setState(
                     {
                         'users': users

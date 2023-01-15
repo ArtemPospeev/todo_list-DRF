@@ -1,5 +1,6 @@
 from rest_framework.relations import StringRelatedField
 from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
+
 from todoapp.models import Project, ToDo
 
 
@@ -11,10 +12,10 @@ class ProjectModelSerializer(HyperlinkedModelSerializer):
         fields = '__all__'
 
 
-class ToDoModelSerializer(HyperlinkedModelSerializer):
+class ToDoModelSerializer(ModelSerializer):
     creator = StringRelatedField()
     project = StringRelatedField()
 
     class Meta:
         model = ToDo
-        fields = '__all__'
+        exclude = ('deleted',)
