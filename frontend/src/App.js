@@ -2,18 +2,19 @@ import './App.css';
 import React from 'react';
 import axios from "axios";
 import UserList from "./components/Users";
-import MenuList from "./components/Menu";
-import FooterList from "./components/Footer";
 import ProjectList from "./components/Projects";
-import TodoList from "./components/Todo";
-import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
+import TaskList from "./components/Tasks";
+import {BrowserRouter, Link, Redirect, Route, Switch} from "react-router-dom";
+import ProjectDetail from "./components/ProjectDetail";
+import UserDetail from "./components/UserDetail";
+import TaskDetail from "./components/TaskDetail";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             'users': [],
-            'todo': [],
+            'tasks': [],
             'projects': [],
             'menu': [],
             'footer': []
@@ -21,6 +22,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+
         axios.get('http://127.0.0.1:8000/users')
             .then(response => {
                 const users = response.data.results
@@ -33,10 +35,10 @@ class App extends React.Component {
 
         axios.get('http://127.0.0.1:8000/TODO')
             .then(response => {
-                const todo = response.data.results
+                const tasks = response.data.results
                 this.setState(
                     {
-                        'todo': todo
+                        'tasks': tasks
                     }
                 )
             }).catch(error => console.log(error))
@@ -51,62 +53,45 @@ class App extends React.Component {
                 )
             }).catch(error => console.log(error))
 
-        this.state.menu = [
-            {
-                name: 'Main page',
-                link: '#'
-            },
-            {
-                name: 'API documentations',
-                link: '#'
-            },
-            {
-                name: 'Contacts',
-                link: '#'
-            }
-        ]
-
-        this.state.footer = [
-            {
-                name: 'About US',
-                link: '#'
-            },
-            {
-                name: 'Show all products',
-                link: '#'
-            },
-            {
-                name: 'rest@django.local',
-                link: '#'
-            }
-        ]
 
     }
 
     render() {
         return (
-            <div className="App">
-                <BrowserRouter>
+            <BrowserRouter>
+                <div className="App">
                     <nav className="menu">
                         <ul>
                             <li>
                                 <Link to="/">Users</Link>
+                            </li>
+                            <li>
                                 <Link to="/projects">Projects</Link>
-                                <Link to="/todo">Tasks</Link>
+                            </li>
+                            <li>
+                                <Link to="/tasks">Tasks</Link>
                             </li>
                         </ul>
                     </nav>
                     <Switch>
-                        <Route exact path="/" component={() => <MenuList blocks={this.state.menu}/>}/>
-                        <Route exact path="/" component={() => <UserList users={this.state.users}/>}/>
-                        <Route exact path="/" component={() => <FooterList blocks={this.state.footer}/>}/>
-                        <Route exact path="/projects" component={() => <ProjectList items={this.state.projects}/>}/>
-                        <Route exact path="/todo" component={() => <TodoList items={this.state.todo}/>}/>
+                        <Route exact path="/"
+                               component={() => <UserList users={this.state.users} projects={this.state.projects}/>}/>
+                        <Route exact path="/users/:id"
+                               component={() => <UserDetail users={this.state.users} projects={this.state.projects}/>}/>
+                        <Route exact path="/projects"
+                               component={() => <ProjectList items={this.state.projects} tasks={this.state.tasks}/>}/>
+                        <Route exact path="/projects/:id"
+                               component={() => <ProjectDetail items={this.state.projects} tasks={this.state.tasks}/>}/>
+                        <Route exact path="/tasks" component={() => <TaskList items={this.state.tasks}/>}/>
+                        <Route exact path="/tasks/:id" component={() => <TaskDetail items={this.state.tasks}/>}/>
+                        <Redirect from="/users" to="/"/>
                     </Switch>
-                </BrowserRouter>
-            </div>
+
+                </div>
+            </BrowserRouter>
         )
     }
 }
+
 
 export default App;
