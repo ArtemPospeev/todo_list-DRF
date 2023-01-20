@@ -1,11 +1,11 @@
-from rest_framework.relations import StringRelatedField
-from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
+from rest_framework.serializers import ModelSerializer
 
 from todoapp.models import Project, ToDo
+from userapp.serializers import CustomUserModelSerializer
 
 
-class ProjectModelSerializer(HyperlinkedModelSerializer):
-    users = StringRelatedField(many=True)
+class ProjectModelSerializer(ModelSerializer):
+    users = CustomUserModelSerializer(many=True)
 
     class Meta:
         model = Project
@@ -13,9 +13,9 @@ class ProjectModelSerializer(HyperlinkedModelSerializer):
 
 
 class ToDoModelSerializer(ModelSerializer):
-    creator = StringRelatedField()
-    project = StringRelatedField()
+    creator = CustomUserModelSerializer()
+    project = ProjectModelSerializer()
 
     class Meta:
         model = ToDo
-        exclude = ('deleted',)
+        fields = '__all__'
