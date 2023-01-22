@@ -3,7 +3,7 @@ import React from 'react';
 import axios from "axios";
 import UserList from "./components/Users";
 import ProjectList from "./components/Projects";
-import TaskList from "./components/Tasks";
+import {TaskList} from "./components/Tasks";
 import {BrowserRouter, Link, Redirect, Route, Switch} from "react-router-dom";
 import ProjectDetail from "./components/ProjectDetail";
 import UserDetail from "./components/UserDetail";
@@ -16,8 +16,6 @@ class App extends React.Component {
             'users': [],
             'tasks': [],
             'projects': [],
-            'menu': [],
-            'footer': []
         };
     }
 

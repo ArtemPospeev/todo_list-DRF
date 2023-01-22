@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 
-const TaskItem = ({item}) => {
+export const TaskItem = ({item}) => {
     return (
         <tr>
             <td><Link to={`/tasks/${item.id}`}>{item.id}</Link></td>
@@ -15,7 +15,7 @@ const TaskItem = ({item}) => {
         </tr>)
 }
 
-const TaskList = ({items}) => {
+export const TaskList = ({items}) => {
     return (
         <table className='body'>
             <th>
@@ -43,5 +43,3 @@ const TaskList = ({items}) => {
         </table>
     )
 }
-
-export default TaskList
