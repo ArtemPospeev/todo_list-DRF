@@ -53,13 +53,13 @@ const ProjectDetail = ({items, tasks}) => {
                 <th>
                     Tasks
                 </th>
-                {project.map((item) => <ProjectItem item={item} tasks={tasks}/>)}
+                {project.map((item) => <ProjectItem key={item.id} item={item} tasks={tasks}/>)}
             </table>)
-    } else {
-        return (
-            <h4>Ooops, such project not found!</h4>
-        )
     }
+    return (
+        <h4>Ooops, such project not found!</h4>
+    )
+
 }
 
 export default ProjectDetail
