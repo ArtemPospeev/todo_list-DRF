@@ -36,4 +36,4 @@ class Command(BaseCommand):
             project_obj = Project.objects.get(number=todo.pop('project'))
             ToDo.objects.create(**todo, creator=creator_obj, project=project_obj)
 
-        CustomUser.objects.create_superuser('django', password='master', email='django@django.local')
+        CustomUser.objects.create_superuser('admin', password='admin', email='django@django.local')
