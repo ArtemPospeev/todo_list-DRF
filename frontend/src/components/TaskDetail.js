@@ -1,49 +1,22 @@
 import React from "react";
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
+import {TaskItem} from "./Tasks"
 
 
-const TaskItem = ({item}) => {
-    return (
-        <tr>
-            <td>{item.id}</td>
-            <td>{item.number}</td>
-            <td><Link to={`/users/${item.creator.id}`}>{item.creator.username}</Link></td>
-            <td><Link to={`/projects/${item.project.id}`}>{item.project.name}</Link></td>
-            <td>{item.body}</td>
-            <td>{item.createdAt}</td>
-            <td>{item.isActive ? 'Yes' : 'No'}</td>
-        </tr>)
-}
-
-const TaskDetail = ({items}) => {
+export const TaskDetail = ({items}) => {
     let {id} = useParams()
-    let task = items.filter(item => item.id == id)
+    let task = items.filter(item => String(item.id) === id)
+    const columnNames = ['Id', 'Number', 'Creator', 'Project', 'Body', 'Created at', 'Is active']
     return (
         <table className='body'>
-            <th>
-                Id
-            </th>
-            <th>
-                Number
-            </th>
-            <th>
-                Creator
-            </th>
-            <th>
-                Project
-            </th>
-            <th>
-                Body
-            </th>
-            <th>
-                Created at
-            </th>
-            <th>
-                Is active
-            </th>
+            <thead>
+            <tr>
+                {columnNames.map(item => <th>{item}</th>)}
+            </tr>
+            </thead>
+            <tbody>
             {task.map((item) => <TaskItem item={item}/>)}
+            </tbody>
         </table>
     )
 }
-
-export default TaskDetail

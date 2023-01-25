@@ -1,13 +1,14 @@
 import './App.css';
 import React from 'react';
 import axios from "axios";
-import UserList from "./components/Users";
-import ProjectList from "./components/Projects";
+import {UserList} from "./components/Users";
+import {ProjectList} from "./components/Projects";
 import {TaskList} from "./components/Tasks";
 import {BrowserRouter, Link, Redirect, Route, Switch} from "react-router-dom";
-import ProjectDetail from "./components/ProjectDetail";
+import {ProjectDetail} from "./components/ProjectDetail";
 import UserDetail from "./components/UserDetail";
-import TaskDetail from "./components/TaskDetail";
+import {TaskDetail} from "./components/TaskDetail";
+import {v4} from 'uuid';
 
 class App extends React.Component {
     constructor(props) {
@@ -19,39 +20,26 @@ class App extends React.Component {
         };
     }
 
+    _send_axios_get_request(url, state_param) {
+        axios.get(url)
+            .then(response => {
+                const object = response.data.results
+                this.setState(
+                    {
+                        [state_param]: object
+                    }
+                )
+            }).catch(error => console.log(error))
+    }
+
+    load_data() {
+        this._send_axios_get_request('http://127.0.0.1:8000/users', 'users')
+        this._send_axios_get_request('http://127.0.0.1:8000/TODO', 'tasks')
+        this._send_axios_get_request('http://127.0.0.1:8000/projects', 'projects')
+    }
+
     componentDidMount() {
-
-        axios.get('http://127.0.0.1:8000/users')
-            .then(response => {
-                const users = response.data.results
-                this.setState(
-                    {
-                        'users': users
-                    }
-                )
-            }).catch(error => console.log(error))
-
-        axios.get('http://127.0.0.1:8000/TODO')
-            .then(response => {
-                const tasks = response.data.results
-                this.setState(
-                    {
-                        'tasks': tasks
-                    }
-                )
-            }).catch(error => console.log(error))
-
-        axios.get('http://127.0.0.1:8000/projects')
-            .then(response => {
-                const projects = response.data.results
-                this.setState(
-                    {
-                        'projects': projects
-                    }
-                )
-            }).catch(error => console.log(error))
-
-
+        this.load_data()
     }
 
     render() {
@@ -73,7 +61,8 @@ class App extends React.Component {
                     </nav>
                     <Switch>
                         <Route exact path="/"
-                               component={() => <UserList users={this.state.users} projects={this.state.projects}/>}/>
+                               component={() => <UserList key={v4()} users={this.state.users}
+                                                          projects={this.state.projects}/>}/>
                         <Route exact path="/users/:id"
                                component={() => <UserDetail users={this.state.users} projects={this.state.projects}/>}/>
                         <Route exact path="/projects"

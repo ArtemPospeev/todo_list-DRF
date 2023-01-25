@@ -1,19 +1,19 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-const UserItem = ({user}) => {
+export const UserItem = ({user}) => {
     return (
-        <td><Link to={`/users/${user.id}`}>{user.username}</Link></td>
+        <div><Link to={`/users/${user.id}`}>{user.username}</Link></div>
     )
 }
 
-const TaskItem = ({task}) => {
+export const TaskItem = ({task}) => {
     return (
-        <td><Link to={`/tasks/${task.id}`}>{task.number}:{task.body}</Link></td>
+        <div><Link to={`/tasks/${task.id}`}>{task.number}:{task.body}</Link></div>
     )
 }
 
-const ProjectItem = ({item, tasks}) => {
+export const ProjectItem = ({item, tasks}) => {
     let projectTasks = tasks.filter(task => task.project.name == item.name)
     return (<tr>
         <td><Link to={`/projects/${item.id}`}>{item.id}</Link></td>
@@ -27,31 +27,18 @@ const ProjectItem = ({item, tasks}) => {
 }
 
 
-const ProjectList = ({items, tasks}) => {
-    return (<table className='body'>
-        <th>
-            Id
-        </th>
-        <th>
-            Number
-        </th>
-        <th>
-            Name
-        </th>
-        <th>
-            Users
-        </th>
-        <th>
-            Repository link
-        </th>
-        <th>
-            Created at
-        </th>
-        <th>
-            Tasks
-        </th>
-        {items.map((item) => <ProjectItem item={item} tasks={tasks}/>)}
-    </table>)
+export const ProjectList = ({items, tasks}) => {
+    const columnNames = ['Id', 'Number', 'Name', 'Users', 'Repository link', 'Created at', 'Tasks']
+    return (
+        <table className='body'>
+            <thead>
+            <tr>
+                {columnNames.map(item => <th>{item}</th>)}
+            </tr>
+            </thead>
+            <tbody>
+            {items.map((item) => <ProjectItem item={item} tasks={tasks}/>)}
+            </tbody>
+        </table>)
 }
 
-export default ProjectList
