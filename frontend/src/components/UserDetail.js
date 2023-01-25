@@ -1,14 +1,15 @@
 import React from "react";
 import {useParams} from "react-router-dom";
-import {UserItem} from "./Users"
+import {UserItem} from "./Users";
+import _ from "lodash";
 
 
-const UserDetail = ({users, projects}) => {
-    let {id} = useParams()
-    let user = users.filter(user => String(user.id) === id)
-    const columnNames = ['Id', 'Username', 'First name', 'Last name', 'Email', 'Birthday date', 'Projects']
-    if (user) {
-        return (
+export const UserDetail = ({users, projects}) => {
+    let {id} = useParams();
+    let user = users.filter(user => String(user.id) === id);
+    const columnNames = ['Id', 'Username', 'First name', 'Last name', 'Email', 'Birthday date', 'Projects'];
+    console.log()
+    return (!_.isEmpty(user) ?
             <table className='body'>
                 <thead>
                 <tr>
@@ -18,13 +19,9 @@ const UserDetail = ({users, projects}) => {
                 <tbody>
                 {user.map((user) => <UserItem user={user} projects={projects}/>)}
                 </tbody>
-            </table>
-        )
-    } else {
-        return (
-            <h4>Ooops, such user not found!</h4>
-        )
-    }
-}
+            </table> :
 
-export default UserDetail
+            <h4>Ooops, such user not found!</h4>
+    )
+
+}

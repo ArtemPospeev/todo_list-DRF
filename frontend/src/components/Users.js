@@ -1,6 +1,5 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {v4} from "uuid";
 
 
 export function GiveUserProjects(user, projects) {
@@ -31,7 +30,7 @@ export const UserItem = ({user, projects}) => {
             <td>{user.lastName}</td>
             <td>{user.email}</td>
             <td>{user.birthdayDate}</td>
-            <td>{userProjects.map(project => <ProjectItem key={user.id} item={project}/>)}</td>
+            <td>{userProjects.map(project => <ProjectItem item={project}/>)}</td>
         </tr>
     )
 }
@@ -46,7 +45,7 @@ export const UserList = ({users, projects}) => {
             </tr>
             </thead>
             <tbody>
-            {users.map((user) => <UserItem key={v4()} user={user} projects={projects}/>)}
+            {users.map((user) => <UserItem user={user} projects={projects}/>)}
             </tbody>
         </table>
     )
