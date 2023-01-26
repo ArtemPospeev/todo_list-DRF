@@ -27,6 +27,7 @@ class App extends React.Component {
             'tasks': [],
             'projects': [],
             'token': '',
+            'username': '',
         };
     }
 
@@ -36,12 +37,19 @@ class App extends React.Component {
         this.setState({'token': token}, () => this.load_data())
     }
 
+    set_username(username) {
+        const cookies = new Cookies()
+        cookies.set('username', username)
+        this.setState({'username': username})
+    }
+
     is_authenticated() {
         return this.state.token !== ''
     }
 
     logout() {
         this.set_token('')
+        this.set_username('')
     }
 
     get_token_from_storage() {
@@ -51,11 +59,14 @@ class App extends React.Component {
     }
 
     get_token(username, password) {
+        const cookies = new Cookies()
+        cookies.set('username', username)
         axios.post(
             'http://127.0.0.1:8000/api-auth-token/',
             {username: username, password: password}
         ).then(response => {
             this.set_token(response.data['token'])
+            this.set_username(username)
         }).catch(error => alert('Wrong login or password'))
     }
 
@@ -88,6 +99,14 @@ class App extends React.Component {
         this._send_axios_get_request('http://127.0.0.1:8000/projects', 'projects')
     }
 
+    get_username() {
+        if (this.is_authenticated()) {
+            return (
+                <li>{this.state.username}</li>
+            )
+        }
+    }
+
     componentDidMount() {
         this.get_token_from_storage()
     }
@@ -107,6 +126,7 @@ class App extends React.Component {
                             <li>
                                 <Link to="/tasks">Tasks</Link>
                             </li>
+                            {this.get_username()}
                             <li>
                                 {this.is_authenticated() ?
                                     <button onClick={() => this.logout()}>Logout</button> :
