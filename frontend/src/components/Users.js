@@ -2,11 +2,11 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 
-function GiveUserProjects(user, projects) {
+export function GiveUserProjects(user, projects) {
     let userProjects = []
     for (let project of projects) {
         for (let projectUser of project.users) {
-            if (user.id == projectUser.id) {
+            if (user.id === projectUser.id) {
                 userProjects.push(project)
             }
         }
@@ -14,13 +14,13 @@ function GiveUserProjects(user, projects) {
     return userProjects
 }
 
-const ProjectItem = ({item}) => {
+export const ProjectItem = ({item}) => {
     return (
-        <td><Link to={`/projects/${item.id}`}>{item.name}</Link></td>
+        <div><Link to={`/projects/${item.id}`}>{item.name}</Link></div>
     )
 }
 
-const UserItem = ({user, projects}) => {
+export const UserItem = ({user, projects}) => {
     let userProjects = GiveUserProjects(user, projects)
     return (
         <tr>
@@ -35,33 +35,18 @@ const UserItem = ({user, projects}) => {
     )
 }
 
-const UserList = ({users, projects}) => {
+export const UserList = ({users, projects}) => {
+    const columnNames = ['Id', 'Username', 'First name', 'Last name', 'Email', 'Birthday date', 'Projects']
     return (
         <table className='body'>
-            <th>
-                Id
-            </th>
-            <th>
-                Username
-            </th>
-            <th>
-                First name
-            </th>
-            <th>
-                Last name
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Birthday date
-            </th>
-            <th>
-                Projects
-            </th>
+            <thead>
+            <tr>
+                {columnNames.map(item => <th>{item}</th>)}
+            </tr>
+            </thead>
+            <tbody>
             {users.map((user) => <UserItem user={user} projects={projects}/>)}
+            </tbody>
         </table>
     )
 }
-
-export default UserList
