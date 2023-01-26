@@ -5,4 +5,4 @@ from userapp.models import CustomUser
 class CustomUserModelSerializer(ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = '__all__'
+        exclude = ('password', 'groups', 'user_permissions', 'is_superuser', 'is_staff')

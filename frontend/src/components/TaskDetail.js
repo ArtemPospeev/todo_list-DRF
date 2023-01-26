@@ -7,7 +7,7 @@ import _ from "lodash";
 export const TaskDetail = ({items}) => {
     let {id} = useParams()
     let task = items.filter(item => String(item.id) === id)
-    const columnNames = ['Id', 'Number', 'Creator', 'Project', 'Body', 'Created at', 'Is active']
+    const columnNames = ['Id', 'Creator', 'Project', 'Body', 'Created at', 'Is active']
 
     return (!_.isEmpty(task) ?
             <table className='body'>

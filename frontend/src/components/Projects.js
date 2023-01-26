@@ -14,7 +14,7 @@ export const TaskItem = ({task}) => {
 }
 
 export const ProjectItem = ({item, tasks}) => {
-    let projectTasks = tasks.filter(task => task.project.name === item.name)
+    let projectTasks = tasks.filter(task => task.project === item.id)
     return (<tr>
         <td><Link to={`/projects/${item.id}`}>{item.id}</Link></td>
         <td>{item.number}</td>

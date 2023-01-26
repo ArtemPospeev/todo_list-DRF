@@ -5,8 +5,8 @@ import {Link} from "react-router-dom";
 export function GiveUserProjects(user, projects) {
     let userProjects = []
     for (let project of projects) {
-        for (let projectUser of project.users) {
-            if (user.id === projectUser.id) {
+        for (let id of project.users) {
+            if (user.id === id) {
                 userProjects.push(project)
             }
         }
