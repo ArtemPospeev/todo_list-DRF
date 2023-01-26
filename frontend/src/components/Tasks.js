@@ -1,9 +1,9 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
+export const TASK_COLUMN_NAMES = ['Id', 'Creator', 'Project', 'Body', 'Created at', 'Is active']
 
 export const TaskItem = ({item, users, projects}) => {
-    console.log(projects)
     const user = users.find((user) => user.id === item.creator)
     const project = projects.find((project) => project.id === item.project)
     return (
@@ -19,12 +19,11 @@ export const TaskItem = ({item, users, projects}) => {
 }
 
 export const TaskList = ({items, users, projects}) => {
-    const columnNames = ['Id', 'Creator', 'Project', 'Body', 'Created at', 'Is active']
     return (
         <table className='body'>
             <thead>
             <tr>
-                {columnNames.map(item => <th>{item}</th>)}
+                {TASK_COLUMN_NAMES.map(item => <th>{item}</th>)}
             </tr>
             </thead>
             <tbody>

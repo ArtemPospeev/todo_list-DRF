@@ -1,19 +1,17 @@
 import React from "react";
 import {useParams} from "react-router-dom";
-import {TaskItem} from "./Tasks"
+import {TaskItem, TASK_COLUMN_NAMES} from "./Tasks"
 import _ from "lodash";
-
 
 export const TaskDetail = ({items}) => {
     let {id} = useParams()
     let task = items.filter(item => String(item.id) === id)
-    const columnNames = ['Id', 'Creator', 'Project', 'Body', 'Created at', 'Is active']
 
     return (!_.isEmpty(task) ?
             <table className='body'>
                 <thead>
                 <tr>
-                    {columnNames.map(item => <th>{item}</th>)}
+                    {TASK_COLUMN_NAMES.map(item => <th>{item}</th>)}
                 </tr>
                 </thead>
                 <tbody>

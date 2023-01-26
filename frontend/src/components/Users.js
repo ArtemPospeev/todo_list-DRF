@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
+export const USER_COLUMN_NAMES = ['Id', 'Username', 'First name', 'Last name', 'Email', 'Birthday date', 'Projects']
 
 export function GiveUserProjects(user, projects) {
     let userProjects = []
@@ -21,11 +22,11 @@ export const ProjectItem = ({item}) => {
 }
 
 export const UserItem = ({user, projects}) => {
-    let userProjects = GiveUserProjects(user, projects)
+    let userProjects = projects.filter(project => project.users.includes(user.id))
     return (
         <tr>
-            <td><Link to={`/users/${user.id}`}>{user.id}</Link></td>
-            <td>{user.username}</td>
+            <td>{user.id}</td>
+            <td><Link to={`/users/${user.id}`}>{user.username}</Link></td>
             <td>{user.firstName}</td>
             <td>{user.lastName}</td>
             <td>{user.email}</td>
@@ -36,12 +37,11 @@ export const UserItem = ({user, projects}) => {
 }
 
 export const UserList = ({users, projects}) => {
-    const columnNames = ['Id', 'Username', 'First name', 'Last name', 'Email', 'Birthday date', 'Projects']
     return (
         <table className='body'>
             <thead>
             <tr>
-                {columnNames.map(item => <th>{item}</th>)}
+                {USER_COLUMN_NAMES.map(item => <th>{item}</th>)}
             </tr>
             </thead>
             <tbody>
