@@ -1,13 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
-# from uuid import uuid4
+from uuid import uuid4
 
 NULLABLE = {'blank': True, 'null': True}
 
 
 class CustomBaseModel(models.Model):
-    # id = models.UUIDField(primary_key=True, default=uuid4, editable=False)  # мешает тестово заполнять поля
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created", editable=False)
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated", editable=False)
     deleted = models.BooleanField(default=False, verbose_name='Deleted')

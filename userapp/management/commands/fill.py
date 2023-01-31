@@ -1,39 +1,41 @@
 import json
-from django.conf import settings
+import os
+from random import randint, choice
+
+from mixer.backend.django import mixer
 from django.core.management.base import BaseCommand
 from todoapp.models import Project, ToDo
 from userapp.models import CustomUser
 
-
-def load_from_json(file_name):
-    with open(f'{settings.BASE_DIR}/json/{file_name}.json', 'r') as json_file:
-        return json.load(json_file)
+USER_COUNT = 50
+PROJECT_COUNT = 7
+TASK_COUNT = 150
 
 
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        users = load_from_json('users')
-        projects = load_from_json('projects')
-        todo_data = load_from_json('todo')
-
         CustomUser.objects.all().delete()
         Project.objects.all().delete()
         ToDo.objects.all().delete()
 
-        for user in users:
-            CustomUser.objects.create_user(**user)
+        for _ in range(USER_COUNT):
+            mixer.blend('userapp.CustomUser')
 
-        for project in projects:
-            username_list = project.pop('users')
-            project_obj = Project.objects.create(**project)
-            for user_name in username_list:
-                user_obj = CustomUser.objects.get(username=user_name)
-                project_obj.users.add(user_obj)
+        user_objects = CustomUser.objects.all()
 
-        for todo in todo_data:
-            creator_obj = CustomUser.objects.get(username=todo.pop('creator'))
-            project_obj = Project.objects.get(number=todo.pop('project'))
-            ToDo.objects.create(**todo, creator=creator_obj, project=project_obj)
+        for _ in range(PROJECT_COUNT):
+            project = mixer.blend('todoapp.Project')
+            users_counter = randint(1, 10)
+            for user_name in range(users_counter):
+                user_obj = choice(user_objects)
+                project.users.add(user_obj.id)
 
-        CustomUser.objects.create_superuser('admin', password='admin', email='django@django.local')
+        project_objects = Project.objects.all()
+
+        for _ in range(TASK_COUNT):
+            creator_obj = choice(user_objects)
+            project_obj = choice(project_objects)
+            mixer.blend('todoapp.ToDo', creator=creator_obj, project=project_obj)
+        if os.getenv('ENV_TYPE') == 'local':
+            CustomUser.objects.create_superuser('admin', password='admin', email='django@django.local')

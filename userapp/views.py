@@ -4,6 +4,7 @@ from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateMode
 from userapp.models import CustomUser
 from userapp.serializers import CustomUserModelSerializer
 
+
 class CustomUserLimitOffsetPaginator(LimitOffsetPagination):
     default_limit = 20
 
