@@ -10,6 +10,7 @@ import {UserDetail} from "./components/UserDetail";
 import {TaskDetail} from "./components/TaskDetail";
 import {LoginForm} from "./components/Auth";
 import Cookies from "universal-cookie";
+import {Breadcrumb, BreadcrumbItem} from "@chakra-ui/react";
 
 const NotFound404 = ({location}) => {
     return (
@@ -36,6 +37,11 @@ class App extends React.Component {
         this.setState({'token': token}, () => this.load_data())
     }
 
+    set_username(username) {
+        const cookies = new Cookies()
+        cookies.set('username', username)
+    }
+
     is_authenticated() {
         return this.state.token !== ''
     }
@@ -56,6 +62,7 @@ class App extends React.Component {
             {username: username, password: password}
         ).then(response => {
             this.set_token(response.data['token'])
+            this.set_username(username)
         }).catch(error => alert('Wrong login or password'))
     }
 
@@ -96,24 +103,25 @@ class App extends React.Component {
         return (
             <BrowserRouter>
                 <div className="App">
-                    <nav className="menu">
-                        <ul>
-                            <li>
-                                <Link to="/">Users</Link>
-                            </li>
-                            <li>
-                                <Link to="/projects">Projects</Link>
-                            </li>
-                            <li>
-                                <Link to="/tasks">Tasks</Link>
-                            </li>
-                            <li>
-                                {this.is_authenticated() ?
-                                    <button onClick={() => this.logout()}>Logout</button> :
-                                    <Link to='/login'>Login</Link>}
-                            </li>
-                        </ul>
-                    </nav>
+                    <Breadcrumb>
+                        <BreadcrumbItem>
+                            <Link to="/">Users</Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbItem>
+                            <Link to="/projects">Projects</Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbItem>
+                            <Link to="/tasks">Tasks</Link>
+                        </BreadcrumbItem>
+
+                        <BreadcrumbItem>
+                            {this.is_authenticated() ?
+                                <button onClick={() => this.logout()}>Logout</button> :
+                                <Link to='/login'>Login</Link>}
+                        </BreadcrumbItem>
+
+                    </Breadcrumb>
+
                     <Switch>
                         {/*user routes*/}
                         <Route exact path="/"
