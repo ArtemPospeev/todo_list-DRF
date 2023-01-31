@@ -1,18 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-
-export function GiveUserProjects(user, projects) {
-    let userProjects = []
-    for (let project of projects) {
-        for (let projectUser of project.users) {
-            if (user.id === projectUser.id) {
-                userProjects.push(project)
-            }
-        }
-    }
-    return userProjects
-}
+export const USER_COLUMN_NAMES = ['Id', 'Username', 'First name', 'Last name', 'Email', 'Projects']
 
 export const ProjectItem = ({item}) => {
     return (
@@ -21,7 +10,9 @@ export const ProjectItem = ({item}) => {
 }
 
 export const UserItem = ({user, projects}) => {
-    let userProjects = GiveUserProjects(user, projects)
+    console.log(user)
+    console.log(projects[0])
+    const userProjects = projects.filter(project => project.users.includes(user.id))
     return (
         <tr>
             <td><Link to={`/users/${user.id}`}>{user.id}</Link></td>
@@ -29,19 +20,17 @@ export const UserItem = ({user, projects}) => {
             <td>{user.firstName}</td>
             <td>{user.lastName}</td>
             <td>{user.email}</td>
-            <td>{user.birthdayDate}</td>
             <td>{userProjects.map(project => <ProjectItem item={project}/>)}</td>
         </tr>
     )
 }
 
 export const UserList = ({users, projects}) => {
-    const columnNames = ['Id', 'Username', 'First name', 'Last name', 'Email', 'Birthday date', 'Projects']
     return (
         <table className='body'>
             <thead>
             <tr>
-                {columnNames.map(item => <th>{item}</th>)}
+                {USER_COLUMN_NAMES.map(item => <th>{item}</th>)}
             </tr>
             </thead>
             <tbody>

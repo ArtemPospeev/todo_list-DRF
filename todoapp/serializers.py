@@ -7,11 +7,11 @@ class ProjectModelSerializer(ModelSerializer):
 
     class Meta:
         model = Project
-        exclude = 'created_at', 'updated_at'
+        exclude = 'updated_at',
 
 
 class ToDoModelSerializer(ModelSerializer):
 
     class Meta:
         model = ToDo
-        exclude = 'created_at', 'updated_at'
+        exclude = 'updated_at',

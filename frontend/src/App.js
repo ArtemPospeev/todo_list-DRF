@@ -123,12 +123,18 @@ class App extends React.Component {
                                component={() => <UserDetail users={this.state.users} projects={this.state.projects}/>}/>
                         {/*project routes*/}
                         <Route exact path="/projects"
-                               component={() => <ProjectList items={this.state.projects} tasks={this.state.tasks}/>}/>
+                               component={() => <ProjectList users={this.state.users} items={this.state.projects}
+                                                             tasks={this.state.tasks}/>}/>
                         <Route exact path="/projects/:id"
-                               component={() => <ProjectDetail items={this.state.projects} tasks={this.state.tasks}/>}/>
+                               component={() => <ProjectDetail users={this.state.users} items={this.state.projects}
+                                                               tasks={this.state.tasks}/>}/>
                         {/*task routes*/}
-                        <Route exact path="/tasks" component={() => <TaskList items={this.state.tasks}/>}/>
-                        <Route exact path="/tasks/:id" component={() => <TaskDetail items={this.state.tasks}/>}/>
+                        <Route exact path="/tasks"
+                               component={() => <TaskList users={this.state.users} projects={this.state.projects}
+                                                          items={this.state.tasks}/>}/>
+                        <Route exact path="/tasks/:id"
+                               component={() => <TaskDetail users={this.state.users} projects={this.state.projects}
+                                                            items={this.state.tasks}/>}/>
                         {/*other*/}
                         <Route exact path='/login' component={() => <LoginForm
                             get_token={(username, password) => this.get_token(username, password)}/>}/>
