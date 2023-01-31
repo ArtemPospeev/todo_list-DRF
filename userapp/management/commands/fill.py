@@ -7,9 +7,9 @@ from django.core.management.base import BaseCommand
 from todoapp.models import Project, ToDo
 from userapp.models import CustomUser
 
-USER_COUNT = 50
+USER_COUNT = 10
 PROJECT_COUNT = 7
-TASK_COUNT = 150
+TASK_COUNT = 30
 
 
 class Command(BaseCommand):

@@ -7,11 +7,11 @@ from todoapp.serializers import ProjectModelSerializer, ToDoModelSerializer
 
 
 class ProjectLimitOffsetPaginator(LimitOffsetPagination):
-    default_limit = 100
+    default_limit = 10
 
 
 class ToDoLimitOffsetPaginator(LimitOffsetPagination):
-    default_limit = 200
+    default_limit = 40
 
 
 class ProjectModelViewSet(ModelViewSet):
