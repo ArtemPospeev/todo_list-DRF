@@ -26,16 +26,16 @@ export const UserItem = ({user, projects}) => {
 
 export const UserList = ({users, projects}) => {
     return (
-        <TableContainer >
+        <TableContainer>
             <Table variant='striped' colorScheme='blackAlpha' size='sm'>
                 <TableCaption>Users list</TableCaption>
                 <Thead>
-                <Tr>
-                    {USER_COLUMN_NAMES.map(item => <th>{item}</th>)}
-                </Tr>
+                    <Tr>
+                        {USER_COLUMN_NAMES.map(item => <th>{item}</th>)}
+                    </Tr>
                 </Thead>
                 <Tbody>
-                {users.map((user) => <UserItem user={user} projects={projects}/>)}
+                    {users.map((user) => <UserItem user={user} projects={projects}/>)}
                 </Tbody>
             </Table>
         </TableContainer>
