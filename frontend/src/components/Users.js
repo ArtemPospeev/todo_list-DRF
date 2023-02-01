@@ -1,18 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {Table, TableCaption, TableContainer, Tbody, Td, Thead, Tr} from "@chakra-ui/react";
 
-
-export function GiveUserProjects(user, projects) {
-    let userProjects = []
-    for (let project of projects) {
-        for (let projectUser of project.users) {
-            if (user.id === projectUser.id) {
-                userProjects.push(project)
-            }
-        }
-    }
-    return userProjects
-}
+export const USER_COLUMN_NAMES = ['Id', 'Username', 'First name', 'Last name', 'Email', 'Projects']
 
 export const ProjectItem = ({item}) => {
     return (
@@ -21,32 +11,33 @@ export const ProjectItem = ({item}) => {
 }
 
 export const UserItem = ({user, projects}) => {
-    let userProjects = GiveUserProjects(user, projects)
+    const userProjects = projects.filter(project => project.users.includes(user.id))
     return (
-        <tr>
-            <td><Link to={`/users/${user.id}`}>{user.id}</Link></td>
-            <td>{user.username}</td>
-            <td>{user.firstName}</td>
-            <td>{user.lastName}</td>
-            <td>{user.email}</td>
-            <td>{user.birthdayDate}</td>
-            <td>{userProjects.map(project => <ProjectItem item={project}/>)}</td>
-        </tr>
+        <Tr>
+            <Td><Link to={`/users/${user.id}`}>{user.id}</Link></Td>
+            <Td>{user.username}</Td>
+            <Td>{user.firstName}</Td>
+            <Td>{user.lastName}</Td>
+            <Td>{user.email}</Td>
+            <Td>{userProjects.map(project => <ProjectItem item={project}/>)}</Td>
+        </Tr>
     )
 }
 
 export const UserList = ({users, projects}) => {
-    const columnNames = ['Id', 'Username', 'First name', 'Last name', 'Email', 'Birthday date', 'Projects']
     return (
-        <table className='body'>
-            <thead>
-            <tr>
-                {columnNames.map(item => <th>{item}</th>)}
-            </tr>
-            </thead>
-            <tbody>
-            {users.map((user) => <UserItem user={user} projects={projects}/>)}
-            </tbody>
-        </table>
+        <TableContainer>
+            <Table variant='striped' colorScheme='blackAlpha' size='sm'>
+                <TableCaption>Users list</TableCaption>
+                <Thead>
+                    <Tr>
+                        {USER_COLUMN_NAMES.map(item => <th>{item}</th>)}
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {users.map((user) => <UserItem user={user} projects={projects}/>)}
+                </Tbody>
+            </Table>
+        </TableContainer>
     )
 }

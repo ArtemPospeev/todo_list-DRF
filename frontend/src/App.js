@@ -4,12 +4,15 @@ import axios from "axios";
 import {UserList} from "./components/Users";
 import {ProjectList} from "./components/Projects";
 import {TaskList} from "./components/Tasks";
-import {BrowserRouter, Link, Redirect, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {ProjectDetail} from "./components/ProjectDetail";
 import {UserDetail} from "./components/UserDetail";
 import {TaskDetail} from "./components/TaskDetail";
 import {LoginForm} from "./components/Auth";
 import Cookies from "universal-cookie";
+import {Header} from "./components/Header";
+import {Box, Container} from "@chakra-ui/react";
+import {Footer} from "./components/Footer";
 
 const NotFound404 = ({location}) => {
     return (
@@ -19,6 +22,7 @@ const NotFound404 = ({location}) => {
     )
 }
 
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -27,6 +31,7 @@ class App extends React.Component {
             'tasks': [],
             'projects': [],
             'token': '',
+            'username': '',
         };
     }
 
@@ -36,12 +41,19 @@ class App extends React.Component {
         this.setState({'token': token}, () => this.load_data())
     }
 
+    set_username(username) {
+        const cookies = new Cookies()
+        cookies.set('username', username)
+        this.setState({'username': username})
+    }
+
     is_authenticated() {
         return this.state.token !== ''
     }
 
     logout() {
         this.set_token('')
+        this.set_username('')
     }
 
     get_token_from_storage() {
@@ -56,6 +68,7 @@ class App extends React.Component {
             {username: username, password: password}
         ).then(response => {
             this.set_token(response.data['token'])
+            this.set_username(username)
         }).catch(error => alert('Wrong login or password'))
     }
 
@@ -96,46 +109,46 @@ class App extends React.Component {
         return (
             <BrowserRouter>
                 <div className="App">
-                    <nav className="menu">
-                        <ul>
-                            <li>
-                                <Link to="/">Users</Link>
-                            </li>
-                            <li>
-                                <Link to="/projects">Projects</Link>
-                            </li>
-                            <li>
-                                <Link to="/tasks">Tasks</Link>
-                            </li>
-                            <li>
-                                {this.is_authenticated() ?
-                                    <button onClick={() => this.logout()}>Logout</button> :
-                                    <Link to='/login'>Login</Link>}
-                            </li>
-                        </ul>
-                    </nav>
-                    <Switch>
-                        {/*user routes*/}
-                        <Route exact path="/"
-                               component={() => <UserList users={this.state.users}
-                                                          projects={this.state.projects}/>}/>
-                        <Route exact path="/users/:id"
-                               component={() => <UserDetail users={this.state.users} projects={this.state.projects}/>}/>
-                        {/*project routes*/}
-                        <Route exact path="/projects"
-                               component={() => <ProjectList items={this.state.projects} tasks={this.state.tasks}/>}/>
-                        <Route exact path="/projects/:id"
-                               component={() => <ProjectDetail items={this.state.projects} tasks={this.state.tasks}/>}/>
-                        {/*task routes*/}
-                        <Route exact path="/tasks" component={() => <TaskList items={this.state.tasks}/>}/>
-                        <Route exact path="/tasks/:id" component={() => <TaskDetail items={this.state.tasks}/>}/>
-                        {/*other*/}
-                        <Route exact path='/login' component={() => <LoginForm
-                            get_token={(username, password) => this.get_token(username, password)}/>}/>
+                    <Header obj={this}/>
+                    <Container maxW="container.xl" >
+                        <Box py="2">
+                            <Switch>
+                                {/*user routes*/}
+                                <Route exact path="/"
+                                       component={() => <UserList users={this.state.users}
+                                                                  projects={this.state.projects}/>}/>
+                                <Route exact path="/users/:id"
+                                       component={() => <UserDetail users={this.state.users}
+                                                                    projects={this.state.projects}/>}/>
+                                {/*project routes*/}
+                                <Route exact path="/projects"
+                                       component={() => <ProjectList users={this.state.users}
+                                                                     items={this.state.projects}
+                                                                     tasks={this.state.tasks}/>}/>
+                                <Route exact path="/projects/:id"
+                                       component={() => <ProjectDetail users={this.state.users}
+                                                                       items={this.state.projects}
+                                                                       tasks={this.state.tasks}/>}/>
+                                {/*task routes*/}
+                                <Route exact path="/tasks"
+                                       component={() => <TaskList users={this.state.users}
+                                                                  projects={this.state.projects}
+                                                                  items={this.state.tasks}/>}/>
+                                <Route exact path="/tasks/:id"
+                                       component={() => <TaskDetail users={this.state.users}
+                                                                    projects={this.state.projects}
+                                                                    items={this.state.tasks}/>}/>
+                                {/*other*/}
+                                <Route exact path='/login' component={() => <LoginForm
+                                    get_token={(username, password) => this.get_token(username, password)}/>}/>
 
-                        <Redirect from="/users" to="/"/>
-                        <Route component={NotFound404}/>
-                    </Switch>
+                                <Redirect from="/users" to="/"/>
+                                <Route component={NotFound404}/>
+                            </Switch>
+                        </Box>
+
+                    </Container>
+                    <Footer/>
 
                 </div>
             </BrowserRouter>
