@@ -1,7 +1,8 @@
 import React from "react";
 import {Link, useParams} from "react-router-dom";
 import _ from "lodash";
-import {Button, SimpleGrid, Stack, Text} from "@chakra-ui/react";
+import {Button, Heading, SimpleGrid, Stack, Text} from "@chakra-ui/react";
+
 
 
 export const TaskDetail = ({items, users, projects}) => {
@@ -11,24 +12,27 @@ export const TaskDetail = ({items, users, projects}) => {
     const project = projects.find(project => project.id === task.project)
     return (!_.isEmpty(task) ?
             <SimpleGrid>
-                <Stack textAlign={'left'} maxW={["80%"]} pl={[null, null, "20", "40"]}>
+                <Stack maxW={["70%"]} >
+                    <Heading>
+                        Task number: {task.number}
+                    </Heading>
                     <Text>
-                        Task ID: {task.id}
+                        <strong>Name:</strong> {task.name}
                     </Text>
                     <Text>
-                        Creator: <Link to={`/users/${creator.id}`}>{creator.username}</Link>
+                        <strong>Creator:</strong> <Link class='customLink' to={`/users/${creator.id}`}>{creator.username}</Link>
                     </Text>
                     <Text>
-                        Project: <Link to={`/projects/${project.id}`}>{project.name}</Link>
+                        <strong>Project:</strong> <Link class='customLink' to={`/projects/${project.id}`}>{project.name}</Link>
                     </Text>
                     <Text>
-                        Task body: {task.body}
+                        <strong>Task body:</strong> {task.body}
                     </Text>
                     <Text>
-                        Created at: {task.createdAt}
+                        <strong>Created at:</strong> {task.createdAt.slice(0,10)}
                     </Text>
                     <Text>
-                        Is active: {task.isActive ? 'Yes' : 'No'}
+                        <strong>Is active:</strong> {task.isActive ? 'Yes' : 'No'}
                     </Text>
 
                     <Link to={`/tasks/`}>

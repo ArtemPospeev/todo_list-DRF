@@ -11,7 +11,7 @@ import {TaskDetail} from "./components/TaskDetail";
 import {LoginForm} from "./components/Auth";
 import Cookies from "universal-cookie";
 import {Header} from "./components/Header";
-import {Box, Container} from "@chakra-ui/react";
+import {Box, Container, Grid, GridItem} from "@chakra-ui/react";
 import {Footer} from "./components/Footer";
 
 const NotFound404 = ({location}) => {
@@ -108,49 +108,54 @@ class App extends React.Component {
     render() {
         return (
             <BrowserRouter>
-                <div className="App">
-                    <Header obj={this}/>
-                    <Container maxW="container.xl" >
-                        <Box py="2">
-                            <Switch>
-                                {/*user routes*/}
-                                <Route exact path="/"
-                                       component={() => <UserList users={this.state.users}
-                                                                  projects={this.state.projects}/>}/>
-                                <Route exact path="/users/:id"
-                                       component={() => <UserDetail users={this.state.users}
-                                                                    projects={this.state.projects}/>}/>
-                                {/*project routes*/}
-                                <Route exact path="/projects"
-                                       component={() => <ProjectList users={this.state.users}
-                                                                     items={this.state.projects}
-                                                                     tasks={this.state.tasks}/>}/>
-                                <Route exact path="/projects/:id"
-                                       component={() => <ProjectDetail users={this.state.users}
-                                                                       items={this.state.projects}
-                                                                       tasks={this.state.tasks}/>}/>
-                                {/*task routes*/}
-                                <Route exact path="/tasks"
-                                       component={() => <TaskList users={this.state.users}
-                                                                  projects={this.state.projects}
-                                                                  items={this.state.tasks}/>}/>
-                                <Route exact path="/tasks/:id"
-                                       component={() => <TaskDetail users={this.state.users}
-                                                                    projects={this.state.projects}
-                                                                    items={this.state.tasks}/>}/>
-                                {/*other*/}
-                                <Route exact path='/login' component={() => <LoginForm
-                                    get_token={(username, password) => this.get_token(username, password)}/>}/>
+                <Grid sx={{display:"flex", flexDirection:"column", minHeight:"97vh"}}>
+                    <GridItem  area={'header'}>
+                        <Header obj={this}/>
+                    </GridItem>
+                    <GridItem area={'main'} >
+                        <Container maxW="56em" sx={{paddingBottom:"100", marginTop:"10"}}>
+                            <Box>
+                                <Switch>
+                                    {/*user routes*/}
+                                    <Route exact path="/"
+                                           component={() => <UserList users={this.state.users}
+                                                                      />}/>
+                                    <Route exact path="/users/:id"
+                                           component={() => <UserDetail users={this.state.users}
+                                                                        projects={this.state.projects}/>}/>
+                                    {/*project routes*/}
+                                    <Route exact path="/projects"
+                                           component={() => <ProjectList users={this.state.users}
+                                                                         items={this.state.projects}
+                                                                         tasks={this.state.tasks}/>}/>
+                                    <Route exact path="/projects/:id"
+                                           component={() => <ProjectDetail users={this.state.users}
+                                                                           items={this.state.projects}
+                                                                           tasks={this.state.tasks}/>}/>
+                                    {/*task routes*/}
+                                    <Route exact path="/tasks"
+                                           component={() => <TaskList users={this.state.users}
+                                                                      projects={this.state.projects}
+                                                                      items={this.state.tasks}/>}/>
+                                    <Route exact path="/tasks/:id"
+                                           component={() => <TaskDetail users={this.state.users}
+                                                                        projects={this.state.projects}
+                                                                        items={this.state.tasks}/>}/>
+                                    {/*other*/}
+                                    <Route exact path='/login' component={() => <LoginForm
+                                        get_token={(username, password) => this.get_token(username, password)}/>}/>
 
-                                <Redirect from="/users" to="/"/>
-                                <Route component={NotFound404}/>
-                            </Switch>
-                        </Box>
+                                    <Redirect from="/users" to="/"/>
+                                    <Route component={NotFound404}/>
+                                </Switch>
+                            </Box>
 
-                    </Container>
-                    <Footer/>
-
-                </div>
+                        </Container>
+                    </GridItem>
+                    <GridItem area={'footer'} sx={{position:"absolute", height:"30px", bottom:"0", left:"0", right:"0" }}>
+                        <Footer/>
+                    </GridItem>
+                </Grid>
             </BrowserRouter>
         )
     }

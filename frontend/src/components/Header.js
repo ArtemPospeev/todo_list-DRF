@@ -1,6 +1,6 @@
-import {Flex, Image, Container, Box, useColorMode} from '@chakra-ui/react';
+import {Box, Container, Flex, Image, useColorMode} from '@chakra-ui/react';
 import {ColorModeSwitcher} from './ColorModeSwitcher';
-import Logo from '../logo.svg';
+import Logo from '../images/logo.svg';
 import {Link} from "react-router-dom";
 import React from "react";
 
@@ -10,22 +10,23 @@ export const Header = ({obj}) => {
         <Box as="header" py={2} bg={colorMode === 'dark' ? 'gray.600' : 'gray.200'}>
             <Container maxW="container.xl">
                 <Flex justifyContent="space-between" alignItems="center">
-                    <Image
-                        src={Logo}
-                        alt="Logo"
-                        boxSize="50px"
-                        objectFit="cover"
-                    />
+                    <a href='/'>
+                        <Image
+                            src={Logo}
+                            alt="Logo"
+                            boxSize="50px"
+                            objectFit="cover"
+                        /></a>
                     <Link to="/">Users</Link>
                     <Link to="/projects">Projects</Link>
                     <Link to="/tasks">Tasks</Link>
                     {(() => {
-                        if (obj.is_authenticated()) {
-                            return (
-                                <div>{obj.state.username}</div>
-                            )
+                            if (obj.is_authenticated()) {
+                                return (
+                                    <div>{obj.state.username}</div>
+                                )
+                            }
                         }
-                    }
                     )()}
                     {obj.is_authenticated() ?
                         <button onClick={() => obj.logout()}>Logout</button> :

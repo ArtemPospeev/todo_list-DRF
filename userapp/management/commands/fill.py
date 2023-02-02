@@ -1,4 +1,3 @@
-import json
 import os
 from random import randint, choice
 
@@ -37,5 +36,6 @@ class Command(BaseCommand):
             creator_obj = choice(user_objects)
             project_obj = choice(project_objects)
             mixer.blend('todoapp.ToDo', creator=creator_obj, project=project_obj)
+
         if os.getenv('ENV_TYPE') == 'local':
             CustomUser.objects.create_superuser('admin', password='admin', email='django@django.local')
