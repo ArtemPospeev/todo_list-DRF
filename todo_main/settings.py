@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework.authtoken',
     'mixer',
+    'drf_yasg',
 
     # Custom
     'userapp',
