@@ -1,13 +1,13 @@
 import './App.css';
 import React from 'react';
 import axios from "axios";
-import {UserList} from "./components/Users";
-import {ProjectList} from "./components/Projects";
-import {TaskList} from "./components/Tasks";
+import {UserList} from "./components/users/Users";
+import {ProjectList} from "./components/projects/Projects";
+import {TaskList} from "./components/tasks/Tasks";
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
-import {ProjectDetail} from "./components/ProjectDetail";
-import {UserDetail} from "./components/UserDetail";
-import {TaskDetail} from "./components/TaskDetail";
+import {ProjectDetail} from "./components/projects/ProjectDetail";
+import {UserDetail} from "./components/users/UserDetail";
+import {TaskDetail} from "./components/tasks/TaskDetail";
 import {LoginForm} from "./components/Auth";
 import Cookies from "universal-cookie";
 import {Header} from "./components/Header";
@@ -22,6 +22,9 @@ const NotFound404 = ({location}) => {
     )
 }
 
+export const ROW_PER_PAGE_USERS = 20
+export const ROW_PER_PAGE_PROJECTS = 20
+export const ROW_PER_PAGE_TASKS = 15
 
 class App extends React.Component {
     constructor(props) {

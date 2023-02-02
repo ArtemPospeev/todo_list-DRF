@@ -1,6 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
+import {useTable} from "../../hooks/useTable";
+import {ROW_PER_PAGE_PROJECTS, ROW_PER_PAGE_USERS} from "../../App";
+import {TableFooter} from "../tableFooter/tableFooter";
 
 export const USER_COLUMN_NAMES = ['Username', 'First name', 'Last name', 'Email']
 
@@ -22,6 +25,8 @@ export const UserItem = ({user}) => {
 }
 
 export const UserList = ({users}) => {
+    const [page, setPage] = useState(1);
+    const {slice, range} = useTable(users, page, ROW_PER_PAGE_USERS);
     return (
         <TableContainer>
             <Table variant='striped' colorScheme='blackAlpha' size='sm'>
@@ -32,9 +37,10 @@ export const UserList = ({users}) => {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    {users.map((user) => <UserItem user={user}/>)}
+                    {slice.map((user) => <UserItem user={user}/>)}
                 </Tbody>
             </Table>
+            <TableFooter range={range} slice={slice} setPage={setPage} page={page}/>
         </TableContainer>
     )
 }
