@@ -10,13 +10,13 @@ export const PROJECT_COLUMN_NAMES = ['Number', 'Name', 'Users', 'Repository link
 
 export const UserItem = ({user}) => {
     return (
-        <div><Link to={`/users/${user.id}`} class='customLink'>{user.username}</Link></div>
+        <p><Link to={`/users/${user.id}`} class='customLink'>{user.username}</Link></p>
     )
 }
 
 export const TaskItem = ({task}) => {
     return (
-        <div><Link to={`/tasks/${task.id}`} class='customLink'> - {task.number}</Link></div>
+        <p><Link to={`/tasks/${task.id}`} class='customLink'> - {task.number}</Link></p>
     )
 }
 

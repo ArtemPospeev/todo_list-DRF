@@ -8,7 +8,7 @@ from userapp.models import CustomUser
 
 USER_COUNT = 10
 PROJECT_COUNT = 7
-TASK_COUNT = 30
+TASK_COUNT = 40
 
 
 class Command(BaseCommand):

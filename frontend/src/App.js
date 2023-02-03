@@ -100,8 +100,8 @@ class App extends React.Component {
 
     load_data() {
         this._send_axios_get_request('http://127.0.0.1:8000/users/', 'users')
-        this._send_axios_get_request('http://127.0.0.1:8000/TODO', 'tasks')
-        this._send_axios_get_request('http://127.0.0.1:8000/projects', 'projects')
+        this._send_axios_get_request('http://127.0.0.1:8000/TODO/', 'tasks')
+        this._send_axios_get_request('http://127.0.0.1:8000/projects/', 'projects')
     }
 
     componentDidMount() {

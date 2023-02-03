@@ -11,7 +11,7 @@ export const UserDetail = ({users, projects}) => {
     const userProjects = projects.filter(project => project.users.includes(user.id))
     return (!_.isEmpty(user) ?
             <SimpleGrid>
-                <Stack maxW={["70%"]}>
+                <Stack textAlign={'left'} maxW={["50%"]} pl={'50px'}>
                     <Text>
                         <strong>Username:</strong> {user.username}
                     </Text>

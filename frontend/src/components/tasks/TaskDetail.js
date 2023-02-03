@@ -12,14 +12,14 @@ export const TaskDetail = ({items, users, projects}) => {
     const project = projects.find(project => project.id === task.project)
     return (!_.isEmpty(task) ?
             <SimpleGrid>
-                <Stack maxW={["70%"]} >
+                <Stack textAlign={'left'} maxW={["80%"]} pl={[null, null, "20", "40"]} >
                     <Heading>
                         Task number: {task.number}
                     </Heading>
                     <Text>
                         <strong>Name:</strong> {task.name}
                     </Text>
-                    <Text>
+                    <Text >
                         <strong>Creator:</strong> <Link class='customLink' to={`/users/${creator.id}`}>{creator.username}</Link>
                     </Text>
                     <Text>

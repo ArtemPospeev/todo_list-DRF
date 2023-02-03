@@ -12,18 +12,20 @@ export const ProjectDetail = ({items, tasks, users}) => {
     let projectUsers = users.filter(user => project.users.includes(user.id))
     return (!_.isEmpty(project) ?
             <SimpleGrid>
-                <Stack textAlign={'left'} maxW={["80%"]} pl={[null, null, "20", "40"]}>
+                <Stack textAlign={'left'} maxW={["50%"]} pl={'50px'}>
                     <Heading>
                         Project number: {project.number}
                     </Heading>
                     <Text>
                         <strong>Name:</strong> {project.name}
                     </Text>
-                    <Text>
-                        <strong>Users:</strong> {projectUsers.map(user => <UserItem user={user}/>)}
+                    <strong>Users:</strong>
+                    <Text sx={{flexDirection: 'column', columnCount: '3'}}>
+                        {projectUsers.map(user => <UserItem user={user}/>)}
                     </Text>
-                    <Text>
-                        <strong>Tasks:</strong> {projectTasks.map(task => <TaskItem task={task}/>)}
+                    <strong>Tasks:</strong>
+                    <Text sx={{display: 'block', flexDirection: 'column', columnCount: '3'}}>
+                        {projectTasks.map(task => <TaskItem task={task}/>)}
                     </Text>
                     <Text>
                         <strong>Repository link:</strong> {project.repoLink}
@@ -32,7 +34,7 @@ export const ProjectDetail = ({items, tasks, users}) => {
                         <strong>Deleted:</strong> {project.deleted ? 'Yes' : 'No'}
                     </Text>
                     <Text>
-                        <strong>Created:</strong> {project.createdAt}
+                        <strong>Created:</strong> {project.createdAt.slice(0,10)}
                     </Text>
 
                     <Link to={`/projects/`}>
