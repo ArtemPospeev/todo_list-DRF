@@ -1,3 +1,5 @@
+from random import randint
+
 from rest_framework import status
 from rest_framework.test import APITestCase
 from userapp.models import CustomUser
@@ -24,13 +26,16 @@ class TestProjectAPI(APITestCase):
         user = mixer.blend('userapp.CustomUser')
         project = mixer.blend('todoapp.Project')
         project_count = Project.objects.count()
-
+        number_for_new_project = project.number + 1
         CustomUser.objects.create_superuser('admin', 'admin@local', 'admin')
         self.client.login(username='admin', password='admin')
         response = self.client.post('/projects/',
-                                    {'name': f'{project.name}', 'repoLink': f'{project.repo_link}',
-                                     'users': [user.id]})
-
+                                    {'name': f'{project.name}',
+                                     'repoLink': f'{project.repo_link}',
+                                     'users': [user.id],
+                                     'number': number_for_new_project
+                                     }
+                                    )
         updated_project_count = Project.objects.count()
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -104,9 +109,12 @@ class TestToDoAPI(APITestCase):
         task = self._blend_task()
         tasks_count = ToDo.objects.count()
         CustomUser.objects.create_superuser('admin', 'admin@local', 'admin')
+        number_for_new_task = task.number + 1
         self.client.login(username='admin', password='admin')
         response = self.client.post('/TODO/', {
             'project': f'{task.project.id}',
+            'number': number_for_new_task,
+            'name': f'{task.name}',
             'creator': f'{task.creator.id}',
             'body': f'{task.body}'
         })
