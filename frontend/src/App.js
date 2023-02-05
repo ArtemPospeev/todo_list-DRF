@@ -13,6 +13,7 @@ import Cookies from "universal-cookie";
 import {Header} from "./components/Header";
 import {Box, Container, Grid, GridItem} from "@chakra-ui/react";
 import {Footer} from "./components/Footer";
+import {allProjectsQuery} from "./queries/graphql";
 
 const NotFound404 = ({location}) => {
     return (
@@ -35,58 +36,60 @@ class App extends React.Component {
             'projects': [],
             'token': '',
             'username': '',
+            'response': ''
         };
     }
 
-    set_token(token) {
+    setToken(token) {
         const cookies = new Cookies()
         cookies.set('token', token)
-        this.setState({'token': token}, () => this.load_data())
+        this.setState({'token': token}, () => this.loadData())
     }
 
-    set_username(username) {
+    setUsername(username) {
         const cookies = new Cookies()
         cookies.set('username', username)
         this.setState({'username': username})
     }
 
-    is_authenticated() {
+
+    isAuthenticated() {
         return this.state.token !== ''
     }
 
     logout() {
-        this.set_token('')
-        this.set_username('')
+        this.setToken('')
+        this.setUsername('')
     }
 
-    get_token_from_storage() {
+    getTokenFromStorage() {
         const cookies = new Cookies()
         const token = cookies.get('token')
-        this.setState({'token': token}, () => this.load_data())
+        this.setState({'token': token}, () => this.loadData())
     }
 
-    get_token(username, password) {
+    getToken(username, password) {
         axios.post(
             'http://127.0.0.1:8000/api-auth-token/',
             {username: username, password: password}
         ).then(response => {
-            this.set_token(response.data['token'])
-            this.set_username(username)
+            this.setToken(response.data['token'])
+            this.setUsername(username)
         }).catch(error => alert('Wrong login or password'))
     }
 
-    get_headers() {
+    getHeaders() {
         let headers = {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         }
-        if (this.is_authenticated()) {
-            headers['Authorization'] = 'Token ' + this.state.token
+        if (this.isAuthenticated()) {
+            headers['Authorization'] = 'Token' + this.state.token
         }
         return headers
     }
 
-    _send_axios_get_request(url, state_param) {
-        const headers = this.get_headers()
+    _sendAxiosGetRequest(url, state_param) {
+        const headers = this.getHeaders()
         axios.get(url, {headers})
             .then(response => {
                 const object = response.data.results
@@ -98,31 +101,33 @@ class App extends React.Component {
             }).catch(error => console.log(error))
     }
 
-    load_data() {
-        this._send_axios_get_request('http://127.0.0.1:8000/users/', 'users')
-        this._send_axios_get_request('http://127.0.0.1:8000/TODO/', 'tasks')
-        this._send_axios_get_request('http://127.0.0.1:8000/projects/', 'projects')
+
+
+    loadData() {
+        this._sendAxiosGetRequest('http://127.0.0.1:8000/users/', 'users')
+        this._sendAxiosGetRequest('http://127.0.0.1:8000/TODO/', 'tasks')
+        this._sendAxiosGetRequest('http://127.0.0.1:8000/projects/', 'projects')
     }
 
     componentDidMount() {
-        this.get_token_from_storage()
+        this.getTokenFromStorage()
     }
 
     render() {
         return (
             <BrowserRouter>
-                <Grid sx={{display:"flex", flexDirection:"column", minHeight:"97vh"}}>
-                    <GridItem  area={'header'}>
+                <Grid sx={{display: "flex", flexDirection: "column", minHeight: "97vh"}}>
+                    <GridItem>
                         <Header obj={this}/>
                     </GridItem>
-                    <GridItem area={'main'} >
-                        <Container maxW="56em" sx={{paddingBottom:"100", marginTop:"10"}}>
+                    <GridItem>
+                        <Container maxW="56em" sx={{paddingBottom: "100", marginTop: "10"}}>
                             <Box>
                                 <Switch>
                                     {/*user routes*/}
                                     <Route exact path="/"
                                            component={() => <UserList users={this.state.users}
-                                                                      />}/>
+                                           />}/>
                                     <Route exact path="/users/:id"
                                            component={() => <UserDetail users={this.state.users}
                                                                         projects={this.state.projects}/>}/>
@@ -146,7 +151,7 @@ class App extends React.Component {
                                                                         items={this.state.tasks}/>}/>
                                     {/*other*/}
                                     <Route exact path='/login' component={() => <LoginForm
-                                        get_token={(username, password) => this.get_token(username, password)}/>}/>
+                                        get_token={(username, password) => this.getToken(username, password)}/>}/>
 
                                     <Redirect from="/users" to="/"/>
                                     <Route component={NotFound404}/>
@@ -155,7 +160,8 @@ class App extends React.Component {
 
                         </Container>
                     </GridItem>
-                    <GridItem area={'footer'} sx={{position:"absolute", height:"30px", bottom:"0", left:"0", right:"0" }}>
+                    <GridItem
+                              sx={{position: "absolute", height: "30px", bottom: "0", left: "0", right: "0"}}>
                         <Footer/>
                     </GridItem>
                 </Grid>

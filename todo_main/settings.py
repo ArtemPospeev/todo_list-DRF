@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'mixer',
     'drf_yasg',
+    'graphene_django',
 
     # Custom
     'userapp',
@@ -163,4 +164,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 100,
     'DEFAULT_VERSIONING_CLASS':
         'rest_framework.versioning.QueryParameterVersioning'
+}
+
+GRAPHENE = {
+    "SCHEMA": "todo_main.schema.schema"
 }

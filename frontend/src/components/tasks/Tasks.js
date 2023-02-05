@@ -12,10 +12,10 @@ const TaskItem = ({item, users, projects}) => {
     const project = projects.find(project => project.id === item.project)
     return (
         <Tr>
-            <Td><Link to={`/tasks/${item.id}`} class='customLink'>{item.number}</Link></Td>
+            <Td><Link to={`/tasks/${item.id}`} className='customLink'>{item.number}</Link></Td>
             <Td>{item.name}</Td>
-            <Td><Link to={`/users/${creator.id}`} class='customLink'>{creator.username}</Link></Td>
-            <Td><Link to={`/projects/${project.id}`} class='customLink'>{project.name}</Link></Td>
+            <Td><Link to={`/users/${creator.id}`} className='customLink'>{creator.username}</Link></Td>
+            <Td><Link to={`/projects/${project.id}`} className='customLink'>{project.name}</Link></Td>
             <Td>{item.createdAt.slice(0, 10)}</Td>
             <Td>{item.isActive ? 'Yes' : 'No'}</Td>
         </Tr>
