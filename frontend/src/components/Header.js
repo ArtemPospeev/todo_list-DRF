@@ -21,14 +21,14 @@ export const Header = ({obj}) => {
                     <Link to="/projects">Projects</Link>
                     <Link to="/tasks">Tasks</Link>
                     {(() => {
-                            if (obj.is_authenticated()) {
+                            if (obj.isAuthenticated()) {
                                 return (
                                     <div>{obj.state.username}</div>
                                 )
                             }
                         }
                     )()}
-                    {obj.is_authenticated() ?
+                    {obj.isAuthenticated() ?
                         <button onClick={() => obj.logout()}>Logout</button> :
                         <Link to='/login'>Login</Link>
                     }

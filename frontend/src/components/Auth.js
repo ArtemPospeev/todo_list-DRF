@@ -21,7 +21,7 @@ export class LoginForm extends React.Component {
 
     render() {
         return (
-            <Box justifyContent='center' alignItem='center'>
+            <Box justifyContent='center'>
                 <form onSubmit={(event) => this.handleSubmit(event)}>
                     <FormControl>
                         <FormLabel>Login</FormLabel>

@@ -2,21 +2,21 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
 import {useTable} from "../../hooks/useTable";
-import {ROW_PER_PAGE_PROJECTS, ROW_PER_PAGE_USERS} from "../../App";
+import {ROW_PER_PAGE_USERS} from "../../App";
 import {TableFooter} from "../tableFooter/tableFooter";
 
 export const USER_COLUMN_NAMES = ['Username', 'First name', 'Last name', 'Email']
 
 export const ProjectItem = ({item}) => {
     return (
-        <div><Link to={`/projects/${item.id}`} class='customLink'>{item.name}</Link></div>
+        <div><Link to={`/projects/${item.id}`} className='customLink'>{item.name}</Link></div>
     )
 }
 
 export const UserItem = ({user}) => {
     return (
         <Tr>
-            <Td><Link to={`/users/${user.id}`} class='customLink'>{user.username}</Link></Td>
+            <Td><Link to={`/users/${user.id}`} className='customLink'>{user.username}</Link></Td>
             <Td>{user.firstName}</Td>
             <Td>{user.lastName}</Td>
             <Td>{user.email}</Td>
