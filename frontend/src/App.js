@@ -13,7 +13,6 @@ import Cookies from "universal-cookie";
 import {Header} from "./components/Header";
 import {Box, Container, Grid, GridItem} from "@chakra-ui/react";
 import {Footer} from "./components/Footer";
-import {allProjectsQuery} from "./queries/graphql";
 
 const NotFound404 = ({location}) => {
     return (
@@ -35,8 +34,7 @@ class App extends React.Component {
             'tasks': [],
             'projects': [],
             'token': '',
-            'username': '',
-            'response': ''
+            'username': ''
         };
     }
 
@@ -50,6 +48,10 @@ class App extends React.Component {
         const cookies = new Cookies()
         cookies.set('username', username)
         this.setState({'username': username})
+    }
+
+    getUsername() {
+        return this.state.username
     }
 
 
@@ -102,7 +104,6 @@ class App extends React.Component {
     }
 
 
-
     loadData() {
         this._sendAxiosGetRequest('http://127.0.0.1:8000/users/', 'users')
         this._sendAxiosGetRequest('http://127.0.0.1:8000/TODO/', 'tasks')
@@ -118,7 +119,8 @@ class App extends React.Component {
             <BrowserRouter>
                 <Grid sx={{display: "flex", flexDirection: "column", minHeight: "97vh"}}>
                     <GridItem>
-                        <Header obj={this}/>
+                        <Header isAuthenticated={() => this.isAuthenticated()} getUsername={() => this.getUsername()}
+                                logout={() => this.logout()}/>
                     </GridItem>
                     <GridItem>
                         <Container maxW="56em" sx={{paddingBottom: "100", marginTop: "10"}}>
@@ -151,7 +153,8 @@ class App extends React.Component {
                                                                         items={this.state.tasks}/>}/>
                                     {/*other*/}
                                     <Route exact path='/login' component={() => <LoginForm
-                                        get_token={(username, password) => this.getToken(username, password)}/>}/>
+                                        get_token={(username, password) => this.getToken(username, password)}
+                                        isAuth={() => this.isAuthenticated()}/>}/>
 
                                     <Redirect from="/users" to="/"/>
                                     <Route component={NotFound404}/>
@@ -161,7 +164,7 @@ class App extends React.Component {
                         </Container>
                     </GridItem>
                     <GridItem
-                              sx={{position: "absolute", height: "30px", bottom: "0", left: "0", right: "0"}}>
+                        sx={{position: "absolute", height: "30px", bottom: "0", left: "0", right: "0"}}>
                         <Footer/>
                     </GridItem>
                 </Grid>

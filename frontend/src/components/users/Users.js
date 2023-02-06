@@ -29,7 +29,7 @@ export const UserList = ({users}) => {
     const {slice, range} = useTable(users, page, ROW_PER_PAGE_USERS);
     return (
         <TableContainer>
-            <Table variant='striped' colorScheme='blackAlpha' size='sm'>
+            <Table variant='striped' colorScheme='blackAlpha' size='sm' >
                 <TableCaption>Users list</TableCaption>
                 <Thead>
                     <Tr>
@@ -37,7 +37,7 @@ export const UserList = ({users}) => {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    {slice.map((user) => <UserItem user={user}/>)}
+                    {slice.map((user) => <UserItem user={user} key={user.id}/>)}
                 </Tbody>
             </Table>
             <TableFooter range={range} slice={slice} setPage={setPage} page={page}/>

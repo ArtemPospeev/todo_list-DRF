@@ -2,13 +2,13 @@ import React from "react";
 import {Link, useParams} from "react-router-dom";
 import {ProjectItem} from "./Users";
 import _ from "lodash";
-import {Button, SimpleGrid, Stack, Text} from "@chakra-ui/react";
+import {Box, Button, SimpleGrid, Stack, Text} from "@chakra-ui/react";
 
 
 export const UserDetail = ({users, projects}) => {
     let {id} = useParams();
     let user = users.filter(user => String(user.id) === id)[0];
-    const userProjects = projects.filter(project => project.users.includes(user.id))
+    const userProjects = projects.filter(project => project?.users.includes(user.id))
     return (!_.isEmpty(user) ?
             <SimpleGrid>
                 <Stack textAlign={'left'} maxW={["50%"]} pl={'50px'}>
@@ -27,9 +27,10 @@ export const UserDetail = ({users, projects}) => {
                     <Text>
                         <strong>Email:</strong> {user.email}
                     </Text>
-                    <Text>
-                        <strong>Projects:</strong> {userProjects.map(project => <ProjectItem item={project}/>)}
-                    </Text>
+                    <strong>Projects:</strong>
+                    <Box>
+                        {userProjects.map(project => <ProjectItem item={project} key={project.id}/>)}
+                    </Box>
 
                     <Link to={`/projects/`}>
                         <Button>Back to users list</Button>

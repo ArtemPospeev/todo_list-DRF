@@ -1,5 +1,6 @@
 import React from "react";
 import {Box, FormControl, FormLabel, Input} from "@chakra-ui/react";
+import {Redirect} from "react-router-dom";
 
 export class LoginForm extends React.Component {
     constructor(props) {
@@ -16,12 +17,17 @@ export class LoginForm extends React.Component {
 
     handleSubmit(event) {
         this.props.get_token(this.state.login, this.state.password)
+
         event.preventDefault()
+
     }
 
     render() {
+        if (this.props.isAuth()) {
+            return <Redirect to='/'/>
+        }
         return (
-            <Box justifyContent='center'>
+            <Box justifyContent='center' sx={{maxWidth: '40%'}}>
                 <form onSubmit={(event) => this.handleSubmit(event)}>
                     <FormControl>
                         <FormLabel>Login</FormLabel>

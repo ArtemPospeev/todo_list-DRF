@@ -8,8 +8,8 @@ import {TableFooter} from "../tableFooter/tableFooter";
 const TASK_COLUMN_NAMES = ['Number', 'Name', 'Creator', 'Project', 'Created at', 'Is active']
 
 const TaskItem = ({item, users, projects}) => {
-    const creator = users.find(user => user.id === item.creator)
-    const project = projects.find(project => project.id === item.project)
+    const creator = users.find(user => user?.id === item.creator)
+    const project = projects.find(project => project?.id === item.project)
     return (
         <Tr>
             <Td><Link to={`/tasks/${item.id}`} className='customLink'>{item.number}</Link></Td>
@@ -35,7 +35,7 @@ export const TaskList = ({items, users, projects}) => {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    {slice.map((item) => <TaskItem users={users} projects={projects} item={item}/>)}
+                    {slice.map((item) => <TaskItem users={users} projects={projects} item={item} key={item.id}/>)}
                 </Tbody>
             </Table>
             <TableFooter range={range} slice={slice} setPage={setPage} page={page}/>

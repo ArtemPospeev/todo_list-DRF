@@ -21,16 +21,18 @@ export const TaskItem = ({task}) => {
 }
 
 export const ProjectItem = ({item, tasks, users}) => {
-    let projectTasks = tasks.filter(task => task.project === item.id).slice(0, 3)
-    let projectUsers = users.filter(user => item.users.includes(user.id)).slice(0, 3)
-    return (<Tr>
-        <Td><Link className='customLink' to={`/projects/${item.id}`}>{item.number}</Link></Td>
-        <Td>{item.name}</Td>
-        <Td>{projectUsers.map(user => <UserItem user={user}/>)}</Td>
-        <Td><a href={item.repoLink}>{item.repoLink}</a></Td>
-        <Td>{item.createdAt.slice(0, 10)}</Td>
-        <Td>{projectTasks.map(task => <TaskItem task={task}/>)}</Td>
-    </Tr>)
+    let projectTasks = tasks.filter(task => task.project === item?.id).slice(0, 3)
+    let projectUsers = users.filter(user => item.users?.includes(user.id)).slice(0, 3)
+    return (
+            <Tr>
+                <Td><Link className='customLink' to={`/projects/${item.id}`}>{item.number}</Link></Td>
+                <Td>{item.name}</Td>
+                <Td>{projectUsers.map(user => <UserItem user={user} key={user.id}/>)}</Td>
+                <Td><a href={item.repoLink}>{item.repoLink}</a></Td>
+                <Td>{item.createdAt.slice(0, 10)}</Td>
+                <Td>{projectTasks.map(task => <TaskItem task={task} key={task.id}/>)}</Td>
+            </Tr>
+    )
 }
 
 
@@ -47,7 +49,7 @@ export const ProjectList = ({items, tasks, users}) => {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    {slice.map((item) => <ProjectItem users={users} item={item} tasks={tasks}/>)}
+                    {slice.map((item) => <ProjectItem users={users} item={item} tasks={tasks} key={item.id}/>)}
                 </Tbody>
             </Table>
             <TableFooter range={range} slice={slice} setPage={setPage} page={page}/>
