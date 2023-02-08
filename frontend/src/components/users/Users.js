@@ -16,10 +16,10 @@ export const ProjectItem = ({item}) => {
 export const UserItem = ({user}) => {
     return (
         <Tr>
-            <Td><Link to={`/users/${user.id}`} className='customLink'>{user.username}</Link></Td>
-            <Td>{user.firstName}</Td>
-            <Td>{user.lastName}</Td>
-            <Td>{user.email}</Td>
+            <Td sx={{textAlign:"center"}}><Link to={`/users/${user.id}`} className='customLink'>{user.username}</Link></Td>
+            <Td sx={{textAlign:"center"}}>{user.firstName}</Td>
+            <Td sx={{textAlign:"center"}}>{user.lastName}</Td>
+            <Td sx={{textAlign:"center"}}>{user.email}</Td>
         </Tr>
     )
 }
@@ -29,11 +29,11 @@ export const UserList = ({users}) => {
     const {slice, range} = useTable(users, page, ROW_PER_PAGE_USERS);
     return (
         <TableContainer>
-            <Table variant='striped' colorScheme='blackAlpha' size='sm' >
+            <Table variant='simple' colorScheme='blackAlpha' size='sm' >
                 <TableCaption>Users list</TableCaption>
                 <Thead>
                     <Tr>
-                        {USER_COLUMN_NAMES.map(item => <Th>{item}</Th>)}
+                        {USER_COLUMN_NAMES.map(item => <Th sx={{textAlign:"center"}}>{item}</Th>)}
                     </Tr>
                 </Thead>
                 <Tbody>

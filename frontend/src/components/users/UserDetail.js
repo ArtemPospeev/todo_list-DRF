@@ -9,6 +9,7 @@ export const UserDetail = ({users, projects}) => {
     let {id} = useParams();
     let user = users.filter(user => String(user.id) === id)[0];
     const userProjects = projects.filter(project => project?.users.includes(user.id))
+    console.log(projects)
     return (!_.isEmpty(user) ?
             <SimpleGrid>
                 <Stack textAlign={'left'} maxW={["50%"]} pl={'50px'}>

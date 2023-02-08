@@ -20,18 +20,11 @@ export const Header = (props) => {
                     <Link to="/">Users</Link>
                     <Link to="/projects">Projects</Link>
                     <Link to="/tasks">Tasks</Link>
-                    {(() => {
-                            if (props.isAuthenticated()) {
-                                return (
-                                    <div>{props.getUsername()}</div>
-                                )
-                            }
-                        }
-                    )()}
                     {props.isAuthenticated() ?
                         <button onClick={() => props.logout()}>Logout</button> :
                         <Link to='/login'>Login</Link>
                     }
+                    <div id="username">{props.getUsername()}</div>
                     <ColorModeSwitcher/>
                 </Flex>
             </Container>

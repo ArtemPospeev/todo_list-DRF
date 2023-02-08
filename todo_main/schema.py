@@ -33,7 +33,7 @@ class Query(graphene.ObjectType):
     task_by_id = graphene.Field(TaskType, id=graphene.Int(required=True))
     tasks_by_project_id = graphene.List(TaskType, id=graphene.String(required=True))
 
-    project_by_id = graphene.Field(ProjectType, id=graphene.Int(required=True))
+    project_by_id = graphene.Field(ProjectType, id=graphene.String(required=True))
     projects_by_username = graphene.List(ProjectType, username=graphene.String(required=True))
 
     def resolve_all_tasks(root, info):
