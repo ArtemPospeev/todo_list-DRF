@@ -4,7 +4,7 @@ from todoapp.models import Project, ToDo
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'name', 'number', 'repo_link', 'created_at', 'updated_at')
+    list_display = ('pk', 'name', 'project_number', 'repo_link', 'created_at', 'updated_at')
     list_filter = ('deleted', 'created_at')
     ordering = ('-pk', 'deleted', 'created_at')
     list_per_page = 20
@@ -25,7 +25,7 @@ class ProjectAdmin(admin.ModelAdmin):
 @admin.register(ToDo)
 class ToDoAdmin(admin.ModelAdmin):
     list_display = (
-        'pk', 'project', 'creator', 'number', 'name', 'body', 'is_active', 'created_at', 'updated_at')
+        'pk', 'project', 'creator', 'task_number', 'name', 'body', 'is_active', 'created_at', 'updated_at')
     list_filter = ('deleted', 'created_at')
     ordering = ('-pk', 'deleted', 'created_at')
     list_per_page = 20

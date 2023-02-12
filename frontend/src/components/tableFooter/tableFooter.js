@@ -12,7 +12,8 @@ export const TableFooter = ({range, setPage, page, slice}) => {
     const {colorMode} = useColorMode()
     return (
         <div className={styles.tableFooter}>
-            {range.map((el, index) => (
+            {range.length !== 1 ?
+            range.map((el, index) => (
                 <Button
                     bg={colorMode === 'dark' ? 'teal.600' : 'teal.400'}
                     key={index}
@@ -23,7 +24,7 @@ export const TableFooter = ({range, setPage, page, slice}) => {
                 >
                     {el}
                 </Button>
-            ))}
+            )) : <div/> }
         </div>
     );
 };
