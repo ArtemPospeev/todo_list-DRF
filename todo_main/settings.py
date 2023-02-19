@@ -16,7 +16,7 @@ SECRET_KEY = "django-insecure-u5=-39yy_7he%xd3wlpe=hr1*$zr$vcl37sfbw86iwjj^rxn$r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -87,8 +87,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'lms',
-            'USER': 'postgres',
+            'NAME': 'todo_list',
+            'USER': 'flopp',
+            'PASSWORD': 'flopp123456',
+            'HOST': 'db',
+            "PORT": "5432"
         }
     }
 
