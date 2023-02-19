@@ -168,7 +168,7 @@ class App extends React.Component {
 
                             <Switch>
                                 {/*user routes*/}
-                                <Route exact path="/"
+                                <Route exact path="/users"
                                        component={() => <UserList users={this.state.users}
                                        />}/>
                                 <Route exact path="/users/:id"
@@ -211,7 +211,7 @@ class App extends React.Component {
                                     get_token={(username, password) => this.getToken(username, password)}
                                     isAuth={() => this.isAuthenticated()}/>}/>
 
-                                <Redirect from="/users" to="/"/>
+                                <Redirect from="/" to="/users"/>
                                 <Route component={NotFound404}/>
                             </Switch>
 

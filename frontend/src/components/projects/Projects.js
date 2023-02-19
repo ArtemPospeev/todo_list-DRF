@@ -41,8 +41,8 @@ export const ProjectList = ({items, tasks, users}) => {
     const [page, setPage] = useState(1);
     const {slice, range} = useTable(items, page, ROW_PER_PAGE_PROJECTS);
     return (
-        <TableContainer>
-            <Link to='/projects/create'><Button sx={{backgroundColor:"teal"}}>Create</Button></Link>
+        <TableContainer sx={{display: "flex", flexDirection: "column"}}>
+            <Button sx={{backgroundColor: "teal", alignSelf:"flex-start", marginLeft:"15px"}}><Link to='/projects/create'>Create</Link></Button>
             <Table variant='simple' colorScheme='blackAlpha' size='sm'>
                 <TableCaption>Projects list</TableCaption>
                 <Thead>

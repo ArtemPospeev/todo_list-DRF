@@ -12,12 +12,15 @@ const TaskItem = ({item, users, projects}) => {
     const project = projects.find(project => project?.id === item?.project)
     return (
         <Tr>
-            <Td  sx={{textAlign:"center"}}><Link to={`/tasks/${item.id}`} className='customLink'>{item.taskNumber}</Link></Td>
-            <Td sx={{textAlign:"center"}}>{item.name}</Td>
-            <Td sx={{textAlign:"center"}}><Link to={`/users/${creator.id}`} className='customLink'>{creator.username}</Link></Td>
-            <Td sx={{textAlign:"center"}}><Link to={`/projects/${project.id}`} className='customLink'>{project.name}</Link></Td>
-            <Td sx={{textAlign:"center"}}>{item.createdAt.slice(0, 10)}</Td>
-            <Td sx={{textAlign:"center"}}>{item.isActive ? 'Yes' : 'No'}</Td>
+            <Td sx={{textAlign: "center"}}><Link to={`/tasks/${item.id}`}
+                                                 className='customLink'>{item.taskNumber}</Link></Td>
+            <Td sx={{textAlign: "center"}}>{item.name}</Td>
+            <Td sx={{textAlign: "center"}}><Link to={`/users/${creator.id}`}
+                                                 className='customLink'>{creator.username}</Link></Td>
+            <Td sx={{textAlign: "center"}}><Link to={`/projects/${project.id}`}
+                                                 className='customLink'>{project.name}</Link></Td>
+            <Td sx={{textAlign: "center"}}>{item.createdAt.slice(0, 10)}</Td>
+            <Td sx={{textAlign: "center"}}>{item.isActive ? 'Yes' : 'No'}</Td>
         </Tr>
     )
 }
@@ -26,13 +29,14 @@ export const TaskList = ({items, users, projects}) => {
     const [page, setPage] = useState(1);
     const {slice, range} = useTable(items, page, ROW_PER_PAGE_TASKS);
     return (
-        <TableContainer>
-            <Link to='/tasks/create'><Button sx={{backgroundColor:"teal"}}>Create</Button></Link>
+        <TableContainer sx={{display: "flex", flexDirection: "column"}}>
+            <Button sx={{backgroundColor: "teal", alignSelf: "flex-start", marginLeft: "15px"}}><Link
+                to='/tasks/create'>Create</Link></Button>
             <Table variant='simple' colorScheme='blackAlpha' size='sm'>
                 <TableCaption>Tasks list</TableCaption>
                 <Thead>
                     <Tr>
-                        {TASK_COLUMN_NAMES.map(item => <Th  sx={{textAlign:"center"}}>{item}</Th>)}
+                        {TASK_COLUMN_NAMES.map(item => <Th sx={{textAlign: "center"}}>{item}</Th>)}
                     </Tr>
                 </Thead>
                 <Tbody>

@@ -40,3 +40,7 @@
 .customLink {
     color: teal;
 }
+
+.active {
+    border-bottom: 3px solid #008080;
+}
